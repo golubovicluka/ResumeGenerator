@@ -1,0 +1,136 @@
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 0.5in;
+    color: #333;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #2c3e50;
+    padding-bottom: 1rem;
+}
+
+.name-title h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: #2c3e50;
+}
+
+.name-title h2 {
+    margin: 0.5rem 0;
+    font-size: 1.3rem;
+    color: #7f8c8d;
+}
+
+.contact-info {
+    text-align: right;
+    font-size: 0.9rem;
+}
+
+.contact-info p {
+    margin: 0.2rem 0;
+}
+
+.contact-info a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+section {
+    margin: 1.5rem 0;
+}
+
+h3 {
+    color: #2c3e50;
+    border-bottom: 1px solid #bdc3c7;
+    padding-bottom: 0.3rem;
+    margin-bottom: 1rem;
+}
+
+.experience-item, .education-item {
+    margin-bottom: 1.5rem;
+}
+
+.experience-header, .education-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.company-position h4, .degree-field h4 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+.company-position h5, .degree-field h5 {
+    margin: 0.2rem 0;
+    color: #7f8c8d;
+    font-size: 1rem;
+}
+
+.date-location {
+    text-align: right;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.date-location p {
+    margin: 0;
+}
+
+ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+li {
+    margin: 0.3rem 0;
+}
+
+.skill-category {
+    margin-bottom: 1rem;
+}
+
+.skill-category h4 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1rem;
+}
+
+.skill-category p {
+    margin: 0.3rem 0;
+}
+
+.project-item {
+    margin-bottom: 1.2rem;
+}
+
+.project-item h4 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+.technologies {
+    font-style: italic;
+    color: #7f8c8d;
+    margin: 0.3rem 0;
+}
+
+@media print {
+    body {
+        padding: 0.5in;
+        margin: 0;
+    }
+
+    a {
+        text-decoration: none;
+        color: #3498db;
+    }
+}
