@@ -14,7 +14,7 @@ export function Navigation() {
   );
 
   return (
-    <nav className="max-w-4xl w-full mx-auto p-4 flex justify-center gap-4">
+    <nav className="max-w-7xl w-full mx-auto p-4 flex justify-center gap-4">
       <Link to="/">
         <Button
           variant={location.pathname === "/" ? "default" : "ghost"}
