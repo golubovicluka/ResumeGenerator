@@ -6,8 +6,14 @@ import axios from 'axios';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { DocumentArrowDownIcon } from '@heroicons/react/24/outline';
-import { Copy, Eraser, Bot } from 'lucide-react';
+import { Copy, Eraser, Bot, Pencil } from 'lucide-react';
 import ReactConfetti from 'react-confetti';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const resumeSchema = z.object({
   jsonData: z.string().min(1, 'JSON data is required').refine(
@@ -27,8 +33,37 @@ const resumeSchema = z.object({
 
 type ResumeFormData = z.infer<typeof resumeSchema>;
 
-const aiPrompt = `
-Users must provide a docx or PDF of their resume and a job description.
+const writingStylePrompt = `Writing Style Prompt
+ Use simple language: Write plainly with short sentences.
+• Example: "I need help with this issue."
+• Avoid Al-giveaway phrases: Don't use clichés like "dive into,"
+"unleash your potential," etc.
+• Avoid: "Let's dive into this game-changing solution."
+。 Use instead: "Here's how it works."
+Be direct and concise: Get to the point; remove
+unnecessary words.
+。 Example: "We should meet tomorrow."
+• Maintain a natural tone: Write as you normally speak; it's
+okay to start sentences with "and" or "but."
+。 Example: "And that's why it matters."
+• Avoid marketing language: Don't use hype or promotional
+words.
+• Avoid:"This revolutionary product will transform your life."
+• Use instead: "This product can help you."
+• Keep it real: Be honest; don't force friendliness.
+• Example:"I don't think that's the best idea."
+• Simplify grammar: Don't stress about perfect grammar; it's
+fine not to capitalize "i" if that's your style.
+• Example: "i guess we can try that."
+Stay away from fluff: Avoid unnecessary adjectives and
+adverbs.
+o Example: "We finished the task."
+• Focus on clarity: Make your message easy to understand.
+• Example: "Please send the file by Monday."
+
+`;
+
+const baseAiPrompt = `Users must provide a docx or PDF of their resume and a job description.
 They must also provide their linkedin and github profile links.
 Otherwise the endpoint will reject the request.
 Make sure to inform them as soon as they submit their resume and job description.
@@ -347,6 +382,7 @@ const exampleJson = {
 export function JsonPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [useHumanStyle, setUseHumanStyle] = useState(false);
   const { register, handleSubmit, formState: { errors }, setValue } = useForm<ResumeFormData>({
     resolver: zodResolver(resumeSchema)
   });
@@ -420,7 +456,7 @@ export function JsonPage() {
                   variant="outline"
                   size="sm"
                   onClick={() => {
-                    navigator.clipboard.writeText(aiPrompt)
+                    navigator.clipboard.writeText(useHumanStyle ? writingStylePrompt + baseAiPrompt : baseAiPrompt)
                       .then(() => {
                         const button = document.getElementById('copyAiButton');
                         if (button) {
@@ -480,6 +516,26 @@ export function JsonPage() {
                   <Copy className="h-4 w-4 mr-2" />
                   Copy valid JSON example
                 </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex-1 sm:flex-none text-sm"
+                    >
+                      <Pencil className="h-4 w-4 mr-2" />
+                      Writing Style: {useHumanStyle ? 'Human' : 'Default'}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem onClick={() => setUseHumanStyle(false)}>
+                      Default
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setUseHumanStyle(true)}>
+                      Human Writer
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
                 <Button
                   type="button"
                   variant="outline"
